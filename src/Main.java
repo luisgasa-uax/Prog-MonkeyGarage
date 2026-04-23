@@ -11,10 +11,13 @@ public class Main {
 
         System.out.println("Alta de coche: ");
 
-        System.out.println("Dime el ID");
+        miCoche = leerDatosDeCocheEnUnaLinea(sc);
 
+        System.out.println(miCoche);
 
-
+        System.out.println(miCoche.obtenerLetrasDeMatricula());
+        System.out.println(miCoche.obtenerDigitosDeMatricula());
+        System.out.println(miCoche.obtenerDigtosDeMatricula2());
     }
 
     // Utilizamos métodos o clases estáticas (static) cuando no queremos instanciar un objeto de la clase para utilizar sus métodos
@@ -53,14 +56,45 @@ public class Main {
      * @return objeto Coche
      */
     public static Coche leerDatosDeCocheEnUnaLinea(Scanner sc){
+        String cadenaLeida;
+        String[] arrayCampos = new String[8];
+        Coche coche;
 
+        System.out.println("Dime los datos del coche en este formato: ");
+        System.out.println("id;matricula;marca;modelo;potencia;km;precio");
 
+        cadenaLeida = sc.nextLine();
 
+        //id;matricula;marca;modelo;potencia;km;precio;cantidadReparaciones
+
+        arrayCampos = cadenaLeida.split(";");
+
+        //imprimirArrayStrings(arrayCampos);
+
+        coche = new Coche( convertirStringAEntero(arrayCampos[0]),
+                        arrayCampos[1],
+                        arrayCampos[2],
+                        arrayCampos[3],
+                        convertirStringAEntero(arrayCampos[4]),
+                        convertirStringAEntero(arrayCampos[5]),
+                        convertirStringADouble(arrayCampos[6])
+                );
+
+        return coche;
     }
 
+    public static void imprimirArrayStrings(String[] array){
+        for (int i = 0; i <array.length; i++) {
+            System.out.println(array[i] + "\t");
+        }
+    }
 
-
-
+    private static int convertirStringAEntero(String cadena){
+        return Integer.parseInt(cadena);
+    }
+    private static double convertirStringADouble(String cadena){
+        return Double.parseDouble(cadena);
+    }
 
 
 }
