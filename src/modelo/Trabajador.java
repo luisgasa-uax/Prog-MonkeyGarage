@@ -10,15 +10,31 @@ public abstract class Trabajador {
     private final int id;
     private final String nombre;
     private double salarioBase;
-    private int antiguedad;
+    private int antiguedad; // años
     private double factorProductividad; // número que multiplica a la productividad de cada venta o reparación
 
     public Trabajador(int id, String nombre, double salarioBase, int antiguedad, double factorProductividad) {
         this.id = id;
         this.nombre = nombre;
         this.salarioBase = salarioBase;
-        this.antiguedad = antiguedad;
         this.factorProductividad = factorProductividad;
+
+        this.antiguedad = calcularAntiguedad(antiguedad);
+    }
+
+    private int calcularAntiguedad(int antiguedadRecibida){
+        int resultadoAntiguedad;
+
+        if( antiguedadRecibida == 0 ){
+            resultadoAntiguedad = 1;
+        } else {
+            resultadoAntiguedad = antiguedadRecibida;
+        }
+
+        return resultadoAntiguedad;
+
+        // expresión equivalente con operador ternario
+        // return antiguedadRecibida == 0 ? 1 : antiguedadRecibida;
     }
 
     public int getId() {
@@ -69,7 +85,13 @@ public abstract class Trabajador {
      * Cacula el porcentaje de productividad multiplicando la antiguedad por el factor de productividad
      * @return devuelve el porcentaje de productividad del trabajador
      */
-    public abstract double calcularProductividad();
+    public double calcularPorcentajeProductividad() {
+        double porcentajeProductividad;
+
+        porcentajeProductividad = antiguedad * factorProductividad;
+
+        return porcentajeProductividad;
+    }
 
 
     /**
